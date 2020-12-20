@@ -28,7 +28,7 @@ namespace Fruitpal.Services.Tests.Fruit
         #region Public Methods
 
         [Fact]
-        public void GetFruitCostEstimates_Input_EmptyFormula_Throws_ArgumentException()
+        public void GetCosts_Input_EmptyFormula_Throws_ArgumentException()
         {
             var fruitData = new List<Dictionary<string, object>>()
             {
@@ -52,21 +52,21 @@ namespace Fruitpal.Services.Tests.Fruit
 
             var fruitService = new FruitService(_fruitDao.Object);
 
-            Assert.Throws<ArgumentException>(() => fruitService.GetFruitCostEstimates(string.Empty, string.Empty, 0, 0));
+            Assert.Throws<ArgumentException>(() => fruitService.GetCosts(string.Empty, string.Empty, 0, 0));
         }
 
         [Fact]
-        public void GetFruitCostEstimates_Input_EmptyFruitName_Throws_ArgumentException()
+        public void GetCosts_Input_EmptyFruitName_Throws_ArgumentException()
         {
             _fruitDao.Setup(x => x.GetFruitData(It.IsAny<string>())).Returns(new List<Dictionary<string, object>>());
 
             var fruitService = new FruitService(_fruitDao.Object);
 
-            Assert.Throws<ArgumentException>(() => fruitService.GetFruitCostEstimates(string.Empty, string.Empty, 0, 0));
+            Assert.Throws<ArgumentException>(() => fruitService.GetCosts(string.Empty, string.Empty, 0, 0));
         }
 
         [Fact]
-        public void GetFruitCostEstimates_Input_InvalidFormula_Throws_EvaluationException()
+        public void GetCosts_Input_InvalidFormula_Throws_EvaluationException()
         {
             var fruitData = new List<Dictionary<string, object>>()
             {
@@ -90,11 +90,11 @@ namespace Fruitpal.Services.Tests.Fruit
 
             var fruitService = new FruitService(_fruitDao.Object);
 
-            Assert.Throws<NCalc.EvaluationException>(() => fruitService.GetFruitCostEstimates("mango", "[fixed_overhead] */ [variable_overhead]", 0, 0));
+            Assert.Throws<NCalc.EvaluationException>(() => fruitService.GetCosts("mango", "[fixed_overhead] */ [variable_overhead]", 0, 0));
         }
 
         [Fact]
-        public void GetFruitCostEstimates_Returns_EmptyList()
+        public void GetCosts_Returns_EmptyList()
         {
             var fruitData = new List<Dictionary<string, object>>();
 
@@ -102,13 +102,13 @@ namespace Fruitpal.Services.Tests.Fruit
 
             var fruitService = new FruitService(_fruitDao.Object);
 
-            var costEstimates = fruitService.GetFruitCostEstimates("mango", "(([price_per_volume] + [variable_overhead]) * [volume]) + [fixed_overhead]", 0, 0);
+            var costEstimates = fruitService.GetCosts("mango", "(([price_per_volume] + [variable_overhead]) * [volume]) + [fixed_overhead]", 0, 0);
 
             Assert.Empty(costEstimates);
         }
 
         [Fact]
-        public void GetFruitCostEstimates_Returns_Estimates()
+        public void GetCosts_Returns_Estimates()
         {
             var fruitData = new List<Dictionary<string, object>>()
             {
@@ -132,7 +132,7 @@ namespace Fruitpal.Services.Tests.Fruit
 
             var fruitService = new FruitService(_fruitDao.Object);
 
-            var costEstimates = fruitService.GetFruitCostEstimates("mango", "(([price_per_volume] + [variable_overhead]) * [volume]) + [fixed_overhead]", 0, 0);
+            var costEstimates = fruitService.GetCosts("mango", "(([price_per_volume] + [variable_overhead]) * [volume]) + [fixed_overhead]", 0, 0);
 
             Assert.NotEmpty(costEstimates);
         }

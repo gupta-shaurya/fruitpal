@@ -34,12 +34,12 @@ namespace Fruitpal.ConsoleApp
             string calculationFormula = "(([price_per_volume] + [variable_overhead]) * [volume]) + [fixed_overhead]";
 
             IServiceScope scope = _serviceProvider.CreateScope();
-            var costEstimates = scope.ServiceProvider.GetRequiredService<IFruitService>()
-                .GetFruitCostEstimates(fruitName, calculationFormula, volume, pricePerVolume);
+            var fruitCosts = scope.ServiceProvider.GetRequiredService<IFruitService>()
+                .GetCosts(fruitName, calculationFormula, volume, pricePerVolume);
 
-            foreach (var costEstimate in costEstimates)
+            foreach (var costPerCountry in fruitCosts)
             {
-                Console.WriteLine(string.Format("{0} {1} | {2}", costEstimate.Country, costEstimate.TotalCost, costEstimate.CostBreakdown));
+                Console.WriteLine(string.Format("{0} {1} | {2}", costPerCountry.Country, costPerCountry.TotalCost, costPerCountry.CostBreakdown));
             }
 
             DisposeServices();
@@ -47,7 +47,7 @@ namespace Fruitpal.ConsoleApp
 
         #endregion Public Methods
 
-        #region Private Methods
+        #region DI Configuration Methods
 
         private static void DisposeServices()
         {
@@ -70,6 +70,6 @@ namespace Fruitpal.ConsoleApp
             _serviceProvider = services.BuildServiceProvider(true);
         }
 
-        #endregion Private Methods
+        #endregion DI Configuration Methods
     }
 }

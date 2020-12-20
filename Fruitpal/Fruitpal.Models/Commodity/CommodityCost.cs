@@ -1,14 +1,14 @@
-﻿namespace Fruitpal.Models.Fruit
+﻿namespace Fruitpal.Models.Commodity
 {
-    public class FruitCost
+    public class CommodityCost
     {
         #region Public Fields
-
-        public string CostBreakdown;
 
         public string Country;
 
         public decimal TotalCost;
+
+        public string CostBreakdown;
 
         #endregion Public Fields
     }

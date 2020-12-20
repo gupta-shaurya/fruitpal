@@ -1,7 +1,7 @@
 ﻿using Fruitpal.Common;
 using Fruitpal.Common.Extensions;
 using Fruitpal.DataAccess.Fruit;
-using Fruitpal.Models.Fruit;
+using Fruitpal.Models.Commodity;
 using NCalc;
 using System;
 using System.Collections.Generic;
@@ -28,18 +28,18 @@ namespace Fruitpal.Services.Fruit
 
         #region Public Methods
 
-        public List<FruitCost> GetFruitCostEstimates(string fruitName, string calculationFormula, decimal volume, decimal pricePerVolume)
+        public List<CommodityCost> GetCosts(string fruitName, string calculationFormula, decimal volume, decimal pricePerVolume)
         {
-            List<FruitCost> fruitCostEstimates = new List<FruitCost>();
+            List<CommodityCost> fruitCosts = new List<CommodityCost>();
 
             if (string.IsNullOrWhiteSpace(fruitName))
                 throw new ArgumentException("Invalid input value for fruitName");
 
-            var fruitData = _fruitDao.GetFruitData(fruitName);
+            List<Dictionary<string, object>> fruitData = _fruitDao.GetFruitData(fruitName);
 
             foreach (var data in fruitData)
             {
-                fruitCostEstimates.Add(new FruitCost
+                fruitCosts.Add(new CommodityCost
                 {
                     Country = data[Constants.Country].ToString(),
                     TotalCost = CalculateTotalCost(calculationFormula, data, volume, pricePerVolume),
@@ -47,7 +47,7 @@ namespace Fruitpal.Services.Fruit
                 });
             }
 
-            return fruitCostEstimates.OrderByDescending(data => data.TotalCost).ToList();
+            return fruitCosts.OrderByDescending(data => data.TotalCost).ToList();
         }
 
         #endregion Public Methods

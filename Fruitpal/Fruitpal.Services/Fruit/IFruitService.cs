@@ -1,4 +1,4 @@
-﻿using Fruitpal.Models.Fruit;
+﻿using Fruitpal.Models.Commodity;
 using System.Collections.Generic;
 
 namespace Fruitpal.Services.Fruit
@@ -7,7 +7,7 @@ namespace Fruitpal.Services.Fruit
     {
         #region Public Methods
 
-        List<FruitCost> GetFruitCostEstimates(string fruitName, string calculationFormula, decimal volume, decimal pricePerVolume);
+        List<CommodityCost> GetCosts(string fruitName, string calculationFormula, decimal volume, decimal pricePerVolume);
 
         #endregion Public Methods
     }
