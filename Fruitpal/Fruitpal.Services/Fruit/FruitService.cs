@@ -32,6 +32,9 @@ namespace Fruitpal.Services.Fruit
         {
             List<FruitCost> fruitCostEstimates = new List<FruitCost>();
 
+            if (string.IsNullOrWhiteSpace(fruitName))
+                throw new ArgumentException("Invalid input value for fruitName");
+
             var fruitData = _fruitDao.GetFruitData(fruitName);
 
             foreach (var data in fruitData)
