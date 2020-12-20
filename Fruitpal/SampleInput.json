@@ -1,0 +1,14 @@
+[
+  {
+    "country": "MX",
+    "commodity": "mango",
+    "fixed_overhead": "32.00",
+    "variable_overhead": "1.24"
+  },
+  {
+    "country": "BR",
+    "commodity": "mango",
+    "fixed_overhead": "20.00",
+    "variable_overhead": "1.42"
+  }
+]

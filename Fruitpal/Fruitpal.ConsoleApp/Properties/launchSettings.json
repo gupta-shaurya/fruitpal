@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Fruitpal.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "mango 53 405"
+    }
+  }
+}
